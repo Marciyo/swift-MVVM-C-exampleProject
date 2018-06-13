@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14269.12" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina5_9" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14252.5"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yaB-qR-RkC">
+                    <rect key="frame" x="0.0" y="44" width="370.66666666666669" height="44"/>
+                    <items>
+                        <navigationItem title="Title" id="I1o-2v-tbo">
+                            <barButtonItem key="rightBarButtonItem" title="Item" id="sCM-3m-Og7"/>
+                        </navigationItem>
+                    </items>
+                </navigationBar>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Rt1-KE-OjD">
+                    <rect key="frame" x="62.666666666666657" y="144" width="249.99999999999997" height="250"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="250" id="13y-pw-UNq"/>
+                        <constraint firstAttribute="width" constant="250" id="VSy-oO-ErN"/>
+                    </constraints>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="swd-3l-Lbb">
+                    <rect key="frame" x="159.66666666666666" y="424" width="55.666666666666657" height="36"/>
+                    <accessibility key="accessibilityConfiguration" hint="Title of the item is here" label="TitleLabel">
+                        <accessibilityTraits key="traits" staticText="YES" header="YES"/>
+                    </accessibility>
+                    <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7mf-Fk-NDB">
+                    <rect key="frame" x="62.666666666666657" y="461.33333333333326" width="249.99999999999997" height="286.66666666666674"/>
+                    <mutableString key="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam vel ante ac purus efficitur luctus vel id justo. Curabitur sem massa, ultricies et mollis bibendum, egestas ut ante. Nunc iaculis ac purus mattis scelerisque. Mauris sit amet magna ac erat dapibus maximus. Curabitur eu justo nisl. Pellentesque lacinia est dolor. Phasellus tristique dui non neque maximus mollis. Sed ac consectetur massa, in tempor sem. Maecente. Nunc iaculis ac purus mattis scelerisque. Mauris sit amet magna ac erat dapibus maximus. Curabitur eu justo nisl. Pellentesque lacinia est dolor. Phasellus tristique dui non neque maximus mollis. Sed ac consectetur massa, in tempor sem. Maecenas condimentum quam tellus, eu venenatis ex convallis eu.
+</mutableString>
+                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="swd-3l-Lbb" firstAttribute="top" secondItem="Rt1-KE-OjD" secondAttribute="bottom" constant="30" id="0gb-Sj-yRE"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="7mf-Fk-NDB" secondAttribute="bottom" constant="30" id="2Gc-5W-Adk"/>
+                <constraint firstItem="7mf-Fk-NDB" firstAttribute="width" secondItem="Rt1-KE-OjD" secondAttribute="width" id="7oa-i4-QkW"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="yaB-qR-RkC" secondAttribute="trailing" constant="4.5" id="Hmc-LU-l4E"/>
+                <constraint firstItem="yaB-qR-RkC" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="IZv-Jc-APH"/>
+                <constraint firstItem="7mf-Fk-NDB" firstAttribute="centerX" secondItem="vUN-kp-3ea" secondAttribute="centerX" id="O7x-cV-ETP"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="top" secondItem="yaB-qR-RkC" secondAttribute="top" id="hB2-E0-epu"/>
+                <constraint firstItem="swd-3l-Lbb" firstAttribute="centerX" secondItem="vUN-kp-3ea" secondAttribute="centerX" id="pes-Kn-V8D"/>
+                <constraint firstItem="Rt1-KE-OjD" firstAttribute="centerX" secondItem="vUN-kp-3ea" secondAttribute="centerX" id="uO8-yj-X9a"/>
+                <constraint firstItem="7mf-Fk-NDB" firstAttribute="firstBaseline" secondItem="swd-3l-Lbb" secondAttribute="baseline" constant="24" symbolType="layoutAnchor" id="vCE-t2-xrq"/>
+                <constraint firstItem="Rt1-KE-OjD" firstAttribute="top" secondItem="yaB-qR-RkC" secondAttribute="bottom" constant="56" id="xR0-4D-og3"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <point key="canvasLocation" x="33.5" y="53.5"/>
+        </view>
+    </objects>
+</document>
