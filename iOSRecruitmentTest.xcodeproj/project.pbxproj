@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9A10231220D1541800EB9634 /* RecruitmentItemsFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A10231120D1541800EB9634 /* RecruitmentItemsFetcher.swift */; };
 		9A1F178820D113EB00212881 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A1F178720D113EB00212881 /* Extensions.swift */; };
 		9A1F179920D14D1400212881 /* iOSRecruitmentTest.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9A1F179720D14D1400212881 /* iOSRecruitmentTest.xcdatamodeld */; };
 		9A1F179D20D14D5200212881 /* ItemDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A1F179B20D14D5100212881 /* ItemDetailsViewController.swift */; };
@@ -27,6 +28,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9A10231120D1541800EB9634 /* RecruitmentItemsFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecruitmentItemsFetcher.swift; sourceTree = "<group>"; };
 		9A1F178720D113EB00212881 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		9A1F179820D14D1400212881 /* iOSRecruitmentTest.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = iOSRecruitmentTest.xcdatamodel; sourceTree = "<group>"; };
 		9A1F179B20D14D5100212881 /* ItemDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemDetailsViewController.swift; sourceTree = "<group>"; };
@@ -87,6 +89,7 @@
 				9ADBDF6820667CC5007F4230 /* RecruitmentItemRequest.swift */,
 				9ADBDF6A20667CDC007F4230 /* RecruitmentItemService.swift */,
 				9ADBDF6C20667CF5007F4230 /* RecruitmentItemMapper.swift */,
+				9A10231120D1541800EB9634 /* RecruitmentItemsFetcher.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -219,6 +222,7 @@
 				9ADBDF6B20667CDC007F4230 /* RecruitmentItemService.swift in Sources */,
 				9A1F179D20D14D5200212881 /* ItemDetailsViewController.swift in Sources */,
 				D93FDE421D114DEA00AB8D9B /* AppDelegate.swift in Sources */,
+				9A10231220D1541800EB9634 /* RecruitmentItemsFetcher.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
