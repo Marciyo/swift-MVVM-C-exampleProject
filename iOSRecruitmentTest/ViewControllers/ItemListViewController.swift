@@ -8,15 +8,37 @@
 
 import UIKit
 
-class ItemListViewController: UIViewController, UITableViewDataSource, UISearchBarDelegate {
+class ItemListViewController: UIViewController {
 
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var tableView: UITableView!
 
+    let service = RecruitmentItemService()
+    private let itemMapper = RecruitmentItemMapper()
+    private var recruitmentItemsEntityData: [RecruitmentItemEntity] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.hideKeyboardWhenTappedAround()
-        tableView.register(UINib(nibName: "TableViewCell", bundle: nil), forCellReuseIdentifier: "TableViewCell")
+        self.tableViewConfiguration()
+        self.fetchData()
+    }
+    
+    fileprivate func fetchData() {
+        PersistenceService.deleteAll()
+        self.service.fetchData(successHandler: { response in
+            self.recruitmentItemsEntityData = self.itemMapper.mapToEntity(with: response)
+        }){
+            print("Error in VC with fetching data")
+        }
+    }
+}
+
+extension ItemListViewController: UITableViewDataSource {
+    
+    static let tableViewCellIdentifier = "TableViewCell"
+    
+    fileprivate func tableViewConfiguration() {
+        self.tableView.register(UINib(nibName: "TableViewCell", bundle: nil), forCellReuseIdentifier: ItemListViewController.tableViewCellIdentifier)
     }
     
     // MARK: - UITableView data source
@@ -31,6 +53,8 @@ class ItemListViewController: UIViewController, UITableViewDataSource, UISearchB
         
         return cell
     }
-    
 }
 
+extension ItemListViewController:  UISearchBarDelegate{
+    
+}
