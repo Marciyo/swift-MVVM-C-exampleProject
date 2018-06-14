@@ -8,11 +8,22 @@
 
 import UIKit
 
-struct RecruitmentItemModel: Decodable{
+struct RecruitmentItemModel: Codable{
     let id: Int
     let name: String
     let description: String
     let icon: String
     let timestamp: Int
     let url: String
+}
+
+extension RecruitmentItemModel {
+    enum CodingKeys: String, CodingKey {
+        case id = "id"
+        case name = "name"
+        case description = "description"
+        case icon = "icon_url"
+        case timestamp = "timestamp"
+        case url = "url"
+    }
 }

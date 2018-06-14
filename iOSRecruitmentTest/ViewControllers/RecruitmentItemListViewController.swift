@@ -8,20 +8,24 @@
 
 import UIKit
 
-class ItemListViewController: UIViewController, ShowsAlert {
+class RecruitmentItemListViewController: UIViewController, ShowsAlert {
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var tableView: UITableView!
     private var initialContentOffset = CGPoint()
-
     fileprivate let refreshControl = UIRefreshControl()
+
+    var viewModel: RecruitmentItemListViewModel!
+    weak var delegate: RecruitmentItemListCoordinatorDelegate?
     
+    
+    private let imageCacheAssistant = ImageCacheAssistant()
+
     let service = RecruitmentItemService()
     private let itemMapper = RecruitmentItemMapper()
     private var recruitmentItemsEntityData: [RecruitmentItemEntity] = []
     private var filteredRecruitmentItemsEntityData: [RecruitmentItemEntity] = []
     private let recruitmentItemsFetcher = RecruitmentItemsFetcher()
     
-    private let imageCacheAssistant = ImageCacheAssistant()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -63,15 +67,15 @@ class ItemListViewController: UIViewController, ShowsAlert {
 }
 
 
-extension ItemListViewController: UITableViewDataSource {
+extension RecruitmentItemListViewController: UITableViewDataSource {
     
     static let tableViewCellIdentifier = "TableViewCell"
     
     fileprivate func tableViewConfiguration() {
-        self.refreshControl.addTarget(self, action: #selector(self.fetchData), for: UIControl.Event.valueChanged)
+        self.refreshControl.addTarget(self, action: #selector(self.fetchData), for: .valueChanged)
         self.tableView.refreshControl = refreshControl
         self.initialContentOffset = self.tableView.contentOffset
-        self.tableView.register(UINib(nibName: "TableViewCell", bundle: nil), forCellReuseIdentifier: ItemListViewController.tableViewCellIdentifier)
+        self.tableView.register(UINib(nibName: "TableViewCell", bundle: nil), forCellReuseIdentifier: RecruitmentItemListViewController.tableViewCellIdentifier)
     }
     
     // MARK: - UITableView data source
@@ -112,7 +116,7 @@ extension ItemListViewController: UITableViewDataSource {
     }
 }
 
-extension ItemListViewController:  UISearchBarDelegate{
+extension RecruitmentItemListViewController:  UISearchBarDelegate{
     private func searchBarIsEmpty() -> Bool {
         return self.searchBar.text?.isEmpty ?? true
     }

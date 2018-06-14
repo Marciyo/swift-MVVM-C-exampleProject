@@ -8,8 +8,11 @@
 
 import UIKit
 
-class ItemDetailsViewController: UIViewController {
-
+class RecruitmentItemDetailsViewController: UIViewController {
+    
+    var viewModel: RecruitmentItemDetailsViewModel!
+    weak var delegate: RecruitmentItemListCoordinatorDelegate?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
