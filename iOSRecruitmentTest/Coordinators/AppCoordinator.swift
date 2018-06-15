@@ -20,10 +20,10 @@ class AppCoordinator: Coordinator {
         rootViewController = UINavigationController()
         self.childCoordinators = []
         self.window = window
+        window.rootViewController = navigationController
     }
     
     func start() {
-        window.rootViewController = navigationController
         let recruitmentItemListCoordinator = RecruitmentItemListCoordinator(rootViewController: navigationController)
         recruitmentItemListCoordinator.start()
         add(childCoordinator: recruitmentItemListCoordinator)

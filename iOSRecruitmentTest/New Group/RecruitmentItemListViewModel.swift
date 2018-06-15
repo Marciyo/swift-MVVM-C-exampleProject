@@ -15,15 +15,11 @@ class RecruitmentItemListViewModel {
     
     let refreshing = Observable<Bool>(false)
     let recruitmentItems = Observable<[RecruitmentItemModel]?>(nil)
-    
-    private let imageCacheAssistant = ImageCacheAssistant()
-    
-    var recruitmentItemsEntityData: [RecruitmentItemEntity] = []
-    var filteredRecruitmentItemsEntityData: [RecruitmentItemEntity] = []
-    private let recruitmentItemsFetcher = RecruitmentItemsFetcher()
-    
+    let filteredRecruitmentItems = Observable<[RecruitmentItemModel]?>(nil)
+
     private(set) var error: Error?
     
+
     func fetch() {
         refreshing.value = true
         recruitmentItemListManager.fetch { [weak self] result in
@@ -37,14 +33,15 @@ class RecruitmentItemListViewModel {
     }
     
     func filterContentForSearchText(_ searchText: String, scope: String = "All") {
-        filteredRecruitmentItemsEntityData = recruitmentItemsEntityData.filter({( item : RecruitmentItemEntity) -> Bool in
-            if let name = item.name{
-                return name.lowercased().contains(searchText.lowercased())
-            }else {
-                return false
-            }
+        filteredRecruitmentItems.value = recruitmentItems.value?.filter({( item : RecruitmentItemModel) -> Bool in
+                return item.name.lowercased().contains(searchText.lowercased())
         })
     }
-    //        self.recruitmentItemsEntityData = self.recruitmentItemsFetcher.fetchRecruitmentItemsFromCore().sorted(by: { $0.id < $1.id })
-
 }
+
+//    PersistenceService.deleteAll()
+//
+//    private let imageCacheAssistant = ImageCacheAssistant()
+//    private let recruitmentItemsFetcher = RecruitmentItemsFetcher()
+//    var recruitmentItemsEntityData: [RecruitmentItemEntity] = []
+//        self.recruitmentItemsEntityData = self.recruitmentItemsFetcher.fetchRecruitmentItemsFromCore().sorted(by: { $0.id < $1.id })

@@ -20,37 +20,26 @@ class RecruitmentItemListViewController: UIViewController, ShowsAlert {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.tableViewConfiguration()
+        tableViewConfiguration()
         bindViewModel()
+    }
 
-        viewModel.fetch()
-        
-            //On Completion after fetch\/
-//            DispatchQueue.main.async(execute: { [weak self] () -> Void in
-////                self?.imageCacheAssistant.clearCache()
-//                self?.tableView.reloadData()
-//                self?.refreshControl.endRefreshing()
-//                if let text = self?.searchBar.text {
-//                    self?.filterContentForSearchText(text)
-//                }
-//            })
-            // or on error
-            /* DispatchQueue.main.async(execute: { [weak self] () -> Void in
-                self?.refreshControl.endRefreshing()
-                self?.showAlert(message: "Couldn't fetch data from the server")
-                if let initialOffset = self?.initialContentOffset{
-                    self?.tableView.setContentOffset(initialOffset, animated: true)
-                }
-            })*/
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-//        self.imageCacheAssistant.clearCache()
-    }
-    
     private func bindViewModel() {
-        
+        viewModel.fetch()
+        viewModel.recruitmentItems.bind(to: self) { strongSelf, _ in
+            strongSelf.tableView.reloadData()
+            strongSelf.refreshControl.endRefreshing()
+        }
+
+//        searchController.searchBar.rx.text.asObservable()
+//            .map { ($0 ?? "").lowercased() }
+//            .map { UniversityRequest(name: $0) }
+//            .flatMap { request -> Observable<[UniversityModel]> in
+//                return self.apiClient.send(apiRequest: request)
+//            }
+//            .bind(to: tableView.rx.items(cellIdentifier: cellIdentifier)) { index, model, cell in
+//                cell.textLabel?.text = model.name
+//            }
     }
 }
 
@@ -60,57 +49,34 @@ extension RecruitmentItemListViewController: UITableViewDataSource {
     static let tableViewCellIdentifier = "TableViewCell"
     
     fileprivate func tableViewConfiguration() {
-//        self.refreshControl.addTarget(self, action: #selector(viewModel.fetch), for: .valueChanged)
         self.tableView.refreshControl = refreshControl
+        refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
         self.initialContentOffset = self.tableView.contentOffset
         self.tableView.register(UINib(nibName: "TableViewCell", bundle: nil), forCellReuseIdentifier: RecruitmentItemListViewController.tableViewCellIdentifier)
     }
     
+    @objc func refresh(sender:AnyObject) {
+        viewModel.fetch()
+    }
+    
     // MARK: - UITableView data source
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if searchBarIsEmpty() {
-            return viewModel.recruitmentItems.value!.count
-        }
-        return viewModel.filteredRecruitmentItemsEntityData.count
+        return viewModel.recruitmentItems.value?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell =  tableView.dequeueReusableCell(withIdentifier: "TableViewCell") as! TableViewCell
-        
-        let model: RecruitmentItemEntity
-        
-//        if self.searchBarIsEmpty() {
-        model = viewModel.recruitmentItemsEntityData[indexPath.row]
-//        } else {
-//            model = self.filteredRecruitmentItemsEntityData[indexPath.row]
-//        }
-        
-        
-        
-        cell.item = model
-//        if let image = self.imageCacheAssistant.getImage(for: model.iconUrl ?? "") {
-//            cell.iconView.image = image
-//        } else {
-//            ImageDownloader.downloadedFrom(link: model.iconUrl ?? "", completion: { [weak self] image in
-//                DispatchQueue.main.async(execute: { [weak self] () -> Void in
-//                    self?.imageCacheAssistant.setImage(image: image, forKey: model.iconUrl ?? "")
-//                    if let cell = self?.tableView.cellForRow(at: indexPath) as? TableViewCell {
-//                        cell.iconView.image = image
-//                    }
-//                })
-//            })
-//        }
+        let cell = tableView.dequeueReusableCell(withIdentifier: "TableViewCell") as! TableViewCell
+        if let model = viewModel.recruitmentItems.value {
+            cell.item = model[indexPath.row]
+        }
         return cell
     }
 }
 
-extension RecruitmentItemListViewController:  UISearchBarDelegate{
-    private func searchBarIsEmpty() -> Bool {
-        return self.searchBar.text?.isEmpty ?? true
-    }
-    
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        viewModel.filterContentForSearchText(searchText)
-    }
-}
+// TODO: IN RX BINDING SEARCHBAR TO FILTEREDCONTENT
+//extension RecruitmentItemListViewController:  UISearchBarDelegate{
+//    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+//        viewModel.filterContentForSearchText(searchText)
+//    }
+//}
 

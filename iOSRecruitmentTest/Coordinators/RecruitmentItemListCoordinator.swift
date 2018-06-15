@@ -26,16 +26,13 @@ final class RecruitmentItemListCoordinator: Coordinator {
         let recruitmentItemListVC = RecruitmentItemListViewController()
         recruitmentItemListVC.viewModel = RecruitmentItemListViewModel()
         recruitmentItemListVC.delegate = self
-        recruitmentItemListVC.title = "RecruitmentItems"
-        rootViewController.pushViewController(recruitmentItemListVC, animated: false)
+        rootViewController.pushViewController(recruitmentItemListVC, animated: true)
     }
 }
 
 extension RecruitmentItemListCoordinator: RecruitmentItemListCoordinatorDelegate {
-    
     func startItemDetails() {
         let itemDetailsVC = RecruitmentItemDetailsViewController()
-        itemDetailsVC.title = "ItemDetails"
         itemDetailsVC.viewModel = RecruitmentItemDetailsViewModel()
         rootViewController.pushViewController(itemDetailsVC, animated: true)
     }

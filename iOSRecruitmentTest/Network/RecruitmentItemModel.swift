@@ -8,7 +8,7 @@
 
 import UIKit
 
-struct RecruitmentItemModel: Codable{
+struct RecruitmentItemModel: Decodable{
     let id: Int
     let name: String
     let description: String
@@ -22,7 +22,7 @@ extension RecruitmentItemModel {
         case id = "id"
         case name = "name"
         case description = "description"
-        case icon = "icon_url"
+        case icon = "icon"
         case timestamp = "timestamp"
         case url = "url"
     }

@@ -14,10 +14,10 @@ class TableViewCell: UITableViewCell {
     @IBOutlet weak var itemTitleLabel: UILabel!
     @IBOutlet weak var itemDescLabel: UILabel!
     
-    var item: RecruitmentItemEntity? {
+    var item: RecruitmentItemModel? {
         didSet {
             self.itemTitleLabel.text = self.item?.name ?? ""
-            self.itemDescLabel.text = self.item?.descriptionText ?? ""
+            self.itemDescLabel.text = self.item?.description ?? ""
         }
     }
     

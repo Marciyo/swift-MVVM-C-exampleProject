@@ -18,12 +18,11 @@ class LocalRecruitmentItemListManager: RecruitmentItemListManager {
 
     func fetch(completion: @escaping RecruitmentItemListCompletion) {
         var items: [RecruitmentItemModel] = []
-        PersistenceService.deleteAll()
         service.fetchData(successHandler: { (response) in
             items = response
+            completion(.success(items))
         }) {
             print("error is following")
         }
-        completion(.success(items))
     }
 }
