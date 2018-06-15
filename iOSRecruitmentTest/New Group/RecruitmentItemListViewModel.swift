@@ -12,9 +12,16 @@ import Bond
 class RecruitmentItemListViewModel {
     
     private let recruitmentItemListManager = LocalRecruitmentItemListManager()
-    let recruitmentItem = Observable<RecruitmentItemModel?>(nil)
-
+    
     let refreshing = Observable<Bool>(false)
+    let recruitmentItems = Observable<[RecruitmentItemModel]?>(nil)
+    
+    private let imageCacheAssistant = ImageCacheAssistant()
+    
+    var recruitmentItemsEntityData: [RecruitmentItemEntity] = []
+    var filteredRecruitmentItemsEntityData: [RecruitmentItemEntity] = []
+    private let recruitmentItemsFetcher = RecruitmentItemsFetcher()
+    
     private(set) var error: Error?
     
     func fetch() {
@@ -25,7 +32,19 @@ class RecruitmentItemListViewModel {
             strongSelf.error = result.error
             
             guard let model = result.value else { return }
-            strongSelf.recruitmentItem.value = model
+            strongSelf.recruitmentItems.value = model
         }
     }
+    
+    func filterContentForSearchText(_ searchText: String, scope: String = "All") {
+        filteredRecruitmentItemsEntityData = recruitmentItemsEntityData.filter({( item : RecruitmentItemEntity) -> Bool in
+            if let name = item.name{
+                return name.lowercased().contains(searchText.lowercased())
+            }else {
+                return false
+            }
+        })
+    }
+    //        self.recruitmentItemsEntityData = self.recruitmentItemsFetcher.fetchRecruitmentItemsFromCore().sorted(by: { $0.id < $1.id })
+
 }

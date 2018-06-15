@@ -8,25 +8,25 @@
 
 import UIKit
 
-class AppCoordinator: ModuleCoordinator {
-    func start() {
-        let recruitmentItemListCoordinator = RecruitmentItemListCoordinator(rootViewController: navigationController)
-        let recruitmentItemListVC = RecruitmentItemListViewController()
-        recruitmentItemListVC.delegate = recruitmentItemListCoordinator
-        recruitmentItemListCoordinator.start()
-        add(childCoordinator: recruitmentItemListCoordinator)
-        window.rootViewController = recruitmentItemListVC
-    }
+class AppCoordinator: Coordinator {
     
-    
+    var rootViewController: UINavigationController
     var childCoordinators: [Coordinator]
     
     private let window: UIWindow
     private let userDefaults = UserDefaults.standard
     
-    private var appStarted: Bool {
-        set { userDefaults.set(newValue, forKey: Constants.UserDefaultsKeys.appStarted) }
-        get { return userDefaults.object(forKey: Constants.UserDefaultsKeys.appStarted) as? Bool ?? false }
+    init(window: UIWindow) {
+        rootViewController = UINavigationController()
+        self.childCoordinators = []
+        self.window = window
+    }
+    
+    func start() {
+        window.rootViewController = navigationController
+        let recruitmentItemListCoordinator = RecruitmentItemListCoordinator(rootViewController: navigationController)
+        recruitmentItemListCoordinator.start()
+        add(childCoordinator: recruitmentItemListCoordinator)
     }
     
     private let navigationController: UINavigationController = {
@@ -34,9 +34,4 @@ class AppCoordinator: ModuleCoordinator {
         navigationController.isNavigationBarHidden = true
         return navigationController
     }()
-    
-    init(window: UIWindow) {
-        self.childCoordinators = []
-        self.window = window
-    }
 }

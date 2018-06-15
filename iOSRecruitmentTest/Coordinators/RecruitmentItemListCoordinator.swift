@@ -9,13 +9,12 @@
 import UIKit
 
 protocol RecruitmentItemListCoordinatorDelegate: class {
-    func open(url: String)
     func startItemDetails()
 }
 
-class RecruitmentItemListCoordinator: Coordinator {
+final class RecruitmentItemListCoordinator: Coordinator {
+    var rootViewController: UINavigationController
     var childCoordinators: [Coordinator]
-    let rootViewController: UINavigationController
     var application = UIApplication.shared
     
     init(rootViewController: UINavigationController) {
@@ -24,19 +23,15 @@ class RecruitmentItemListCoordinator: Coordinator {
     }
     
     func start() {
-        let recruitmentItemListVC: RecruitmentItemListViewController = RecruitmentItemListViewController()
+        let recruitmentItemListVC = RecruitmentItemListViewController()
         recruitmentItemListVC.viewModel = RecruitmentItemListViewModel()
-        recruitmentItemListVC.title = "RecruitmentItems"
         recruitmentItemListVC.delegate = self
-        rootViewController.pushViewController(recruitmentItemListVC, animated: true)
+        recruitmentItemListVC.title = "RecruitmentItems"
+        rootViewController.pushViewController(recruitmentItemListVC, animated: false)
     }
 }
 
 extension RecruitmentItemListCoordinator: RecruitmentItemListCoordinatorDelegate {
-    func open(url: String) {
-        guard let url = URL(string: url) else { return }
-        application.open(url, options: [:], completionHandler: nil)
-    }
     
     func startItemDetails() {
         let itemDetailsVC = RecruitmentItemDetailsViewController()
@@ -44,5 +39,4 @@ extension RecruitmentItemListCoordinator: RecruitmentItemListCoordinatorDelegate
         itemDetailsVC.viewModel = RecruitmentItemDetailsViewModel()
         rootViewController.pushViewController(itemDetailsVC, animated: true)
     }
-
 }

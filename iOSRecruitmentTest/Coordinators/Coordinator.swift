@@ -6,10 +6,11 @@
 //  Copyright © 2018 Snowdog. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 protocol Coordinator: class {
     var childCoordinators: [Coordinator] { get set }
+    var rootViewController: UINavigationController { get set }
     func start()
 }
 
@@ -20,13 +21,5 @@ extension Coordinator {
     
     func remove(childCoordinator: Coordinator) {
         self.childCoordinators = self.childCoordinators.filter { $0 !== childCoordinator }
-    }
-    
-    func removeChildCoordinator<T: Coordinator>(type: T.Type) {
-        self.childCoordinators.forEach {
-            if let coordinator = $0 as? T {
-                self.remove(childCoordinator: coordinator)
-            }
-        }
     }
 }
