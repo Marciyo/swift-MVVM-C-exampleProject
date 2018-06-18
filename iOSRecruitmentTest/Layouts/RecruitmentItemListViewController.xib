@@ -1,18 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14269.12" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina5_9" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14252.5"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ItemListViewController" customModule="iOSRecruitmentTest" customModuleProvider="target">
             <connections>
-                <outlet property="searchBar" destination="pcO-sR-wJg" id="J9f-SR-wwx"/>
+                <outlet property="searchBarTextField" destination="R2O-Kd-Gac" id="KL1-Wh-LL2"/>
                 <outlet property="tableView" destination="nf9-A8-L41" id="0bT-rv-oHm"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -27,25 +26,28 @@
                     <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <connections>
                         <outlet property="dataSource" destination="-1" id="jyg-8U-1Vz"/>
+                        <outlet property="delegate" destination="-1" id="XXo-ht-NvT"/>
                     </connections>
                 </tableView>
-                <searchBar contentMode="redraw" placeholder="Search me!" translatesAutoresizingMaskIntoConstraints="NO" id="pcO-sR-wJg">
+                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="R2O-Kd-Gac">
                     <rect key="frame" x="0.0" y="44" width="375" height="44"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="44" id="AN3-gC-vpv"/>
+                        <constraint firstAttribute="height" constant="44" id="cbL-4a-Ffc"/>
                     </constraints>
+                    <nil key="textColor"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits"/>
                     <connections>
-                        <outlet property="delegate" destination="-1" id="95S-it-KJO"/>
+                        <outlet property="delegate" destination="-1" id="kIG-gb-ZEv"/>
                     </connections>
-                </searchBar>
+                </textField>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="pcO-sR-wJg" firstAttribute="leading" secondItem="zBh-Ll-N2Q" secondAttribute="leading" id="3xN-fV-VDk"/>
-                <constraint firstItem="zBh-Ll-N2Q" firstAttribute="trailing" secondItem="pcO-sR-wJg" secondAttribute="trailing" id="4J2-go-3Mk"/>
-                <constraint firstItem="nf9-A8-L41" firstAttribute="top" secondItem="pcO-sR-wJg" secondAttribute="bottom" id="6Wg-3x-iph"/>
-                <constraint firstItem="pcO-sR-wJg" firstAttribute="top" secondItem="zBh-Ll-N2Q" secondAttribute="top" id="RUQ-or-X9N"/>
+                <constraint firstItem="R2O-Kd-Gac" firstAttribute="leading" secondItem="zBh-Ll-N2Q" secondAttribute="leading" id="35S-jt-udC"/>
+                <constraint firstItem="zBh-Ll-N2Q" firstAttribute="trailing" secondItem="R2O-Kd-Gac" secondAttribute="trailing" id="48b-w4-usk"/>
+                <constraint firstItem="nf9-A8-L41" firstAttribute="top" secondItem="R2O-Kd-Gac" secondAttribute="bottom" id="F4x-kP-Xcp"/>
+                <constraint firstItem="R2O-Kd-Gac" firstAttribute="top" secondItem="zBh-Ll-N2Q" secondAttribute="top" id="FJo-DC-4hY"/>
                 <constraint firstItem="zBh-Ll-N2Q" firstAttribute="trailing" secondItem="nf9-A8-L41" secondAttribute="trailing" id="Vh4-Sv-blY"/>
                 <constraint firstItem="nf9-A8-L41" firstAttribute="bottom" secondItem="zBh-Ll-N2Q" secondAttribute="bottom" constant="34" id="Vim-wW-sMj"/>
                 <constraint firstItem="nf9-A8-L41" firstAttribute="leading" secondItem="zBh-Ll-N2Q" secondAttribute="leading" id="z7l-OX-VYF"/>

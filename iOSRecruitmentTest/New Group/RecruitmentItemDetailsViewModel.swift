@@ -10,6 +10,10 @@ import ReactiveKit
 import Bond
 
 class RecruitmentItemDetailsViewModel {
-
     
+    let recruitmentItemModel: RecruitmentItemModel!
+    
+    init(_ model: RecruitmentItemModel) {
+        recruitmentItemModel = model
+    }
 }

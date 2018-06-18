@@ -8,9 +8,10 @@
 
 import UIKit
 import Bond
+import ReactiveKit
 
 class RecruitmentItemListViewController: UIViewController, ShowsAlert {
-    @IBOutlet weak var searchBar: UISearchBar!
+    @IBOutlet weak var searchBarTextField: UITextField!
     @IBOutlet weak var tableView: UITableView!
     private var initialContentOffset = CGPoint()
     fileprivate let refreshControl = UIRefreshControl()
@@ -26,25 +27,15 @@ class RecruitmentItemListViewController: UIViewController, ShowsAlert {
 
     private func bindViewModel() {
         viewModel.fetch()
-        viewModel.recruitmentItems.bind(to: self) { strongSelf, _ in
+        viewModel.filteredRecruitmentItems.bind(to: self) { strongSelf, _ in
             strongSelf.tableView.reloadData()
             strongSelf.refreshControl.endRefreshing()
         }
-
-//        searchController.searchBar.rx.text.asObservable()
-//            .map { ($0 ?? "").lowercased() }
-//            .map { UniversityRequest(name: $0) }
-//            .flatMap { request -> Observable<[UniversityModel]> in
-//                return self.apiClient.send(apiRequest: request)
-//            }
-//            .bind(to: tableView.rx.items(cellIdentifier: cellIdentifier)) { index, model, cell in
-//                cell.textLabel?.text = model.name
-//            }
+        searchBarTextField.reactive.text.bind(to: viewModel.searchString)
     }
 }
 
-
-extension RecruitmentItemListViewController: UITableViewDataSource {
+extension RecruitmentItemListViewController: UITableViewDataSource, UITableViewDelegate {
     
     static let tableViewCellIdentifier = "TableViewCell"
     
@@ -61,22 +52,21 @@ extension RecruitmentItemListViewController: UITableViewDataSource {
     
     // MARK: - UITableView data source
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.recruitmentItems.value?.count ?? 0
+        return viewModel.filteredRecruitmentItems.value?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "TableViewCell") as! TableViewCell
-        if let model = viewModel.recruitmentItems.value {
+        if let model = viewModel.filteredRecruitmentItems.value {
             cell.item = model[indexPath.row]
         }
         return cell
     }
+        
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print("selected item at \(indexPath)")
+        if let model = viewModel.filteredRecruitmentItems.value {
+            delegate?.startItemDetails(with: model[indexPath.row])
+        }
+    }
 }
-
-// TODO: IN RX BINDING SEARCHBAR TO FILTEREDCONTENT
-//extension RecruitmentItemListViewController:  UISearchBarDelegate{
-//    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-//        viewModel.filterContentForSearchText(searchText)
-//    }
-//}
-

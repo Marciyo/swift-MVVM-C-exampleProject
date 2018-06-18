@@ -8,7 +8,7 @@
 
 import UIKit
 
-class RecruitmentItemDetailsViewController: UIViewController {
+class RecruitmentItemDetailsViewController: UIViewController, ShowsAlert {
     
     var viewModel: RecruitmentItemDetailsViewModel!
     weak var delegate: RecruitmentItemListCoordinatorDelegate?
@@ -16,6 +16,9 @@ class RecruitmentItemDetailsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+    }
+
+    @IBAction func back(sender: AnyObject) {
+        _ = navigationController?.popViewController(animated: true)
     }
 }

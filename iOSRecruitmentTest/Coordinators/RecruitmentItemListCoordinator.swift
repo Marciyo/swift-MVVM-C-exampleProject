@@ -9,13 +9,12 @@
 import UIKit
 
 protocol RecruitmentItemListCoordinatorDelegate: class {
-    func startItemDetails()
+    func startItemDetails(with model: RecruitmentItemModel)
 }
 
 final class RecruitmentItemListCoordinator: Coordinator {
     var rootViewController: UINavigationController
     var childCoordinators: [Coordinator]
-    var application = UIApplication.shared
     
     init(rootViewController: UINavigationController) {
         self.rootViewController = rootViewController
@@ -31,9 +30,11 @@ final class RecruitmentItemListCoordinator: Coordinator {
 }
 
 extension RecruitmentItemListCoordinator: RecruitmentItemListCoordinatorDelegate {
-    func startItemDetails() {
+    func startItemDetails(with model: RecruitmentItemModel) {
         let itemDetailsVC = RecruitmentItemDetailsViewController()
-        itemDetailsVC.viewModel = RecruitmentItemDetailsViewModel()
+        let viewModel = RecruitmentItemDetailsViewModel(model)
+        itemDetailsVC.viewModel = viewModel
+        itemDetailsVC.delegate = self
         rootViewController.pushViewController(itemDetailsVC, animated: true)
     }
 }

@@ -16,12 +16,24 @@ class RecruitmentItemListViewModel {
     let refreshing = Observable<Bool>(false)
     let recruitmentItems = Observable<[RecruitmentItemModel]?>(nil)
     let filteredRecruitmentItems = Observable<[RecruitmentItemModel]?>(nil)
+    let searchString = Observable<String?>("")
 
     private(set) var error: Error?
     
+    init() {
+        searchString.value = ""
+        _ = searchString
+            .filter { $0 != "" }
+            .observeNext { [weak self] text in
+                if let text = text {
+                    self?.filterContentForSearchText(text)
+                }
+        }
+    }
 
     func fetch() {
         refreshing.value = true
+        PersistenceService.deleteAll()
         recruitmentItemListManager.fetch { [weak self] result in
             guard let strongSelf = self else { return }
             strongSelf.refreshing.value = false
@@ -29,19 +41,21 @@ class RecruitmentItemListViewModel {
             
             guard let model = result.value else { return }
             strongSelf.recruitmentItems.value = model
+            if strongSelf.filteredRecruitmentItems.value == nil {
+                strongSelf.filteredRecruitmentItems.value = model
+            }
         }
     }
     
-    func filterContentForSearchText(_ searchText: String, scope: String = "All") {
+    func filterContentForSearchText(_ searchText: String) {
         filteredRecruitmentItems.value = recruitmentItems.value?.filter({( item : RecruitmentItemModel) -> Bool in
-                return item.name.lowercased().contains(searchText.lowercased())
+            return item.name.lowercased().contains(searchText.lowercased())
         })
     }
 }
 
-//    PersistenceService.deleteAll()
 //
 //    private let imageCacheAssistant = ImageCacheAssistant()
 //    private let recruitmentItemsFetcher = RecruitmentItemsFetcher()
 //    var recruitmentItemsEntityData: [RecruitmentItemEntity] = []
-//        self.recruitmentItemsEntityData = self.recruitmentItemsFetcher.fetchRecruitmentItemsFromCore().sorted(by: { $0.id < $1.id })
+//    self.recruitmentItemsEntityData = self.recruitmentItemsFetcher.fetchRecruitmentItemsFromCore().sorted(by: { $0.id < $1.id })

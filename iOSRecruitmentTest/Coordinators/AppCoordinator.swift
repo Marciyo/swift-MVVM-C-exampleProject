@@ -14,7 +14,6 @@ class AppCoordinator: Coordinator {
     var childCoordinators: [Coordinator]
     
     private let window: UIWindow
-    private let userDefaults = UserDefaults.standard
     
     init(window: UIWindow) {
         rootViewController = UINavigationController()
